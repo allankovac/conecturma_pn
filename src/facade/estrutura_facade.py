@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from model.estrutura_model import DbEstrutura
 
 
@@ -41,6 +43,9 @@ class EstruturaFacade:
 
     def search_descritor_serie_facade(self, serie):
         return self.estrutura.search_descritor_serie(serie=serie)
+
+    def search_descritor_serie_diciplina_facade(self, serie, diciplina):
+        return self.estrutura.search_descritor_serie_diciplina(serie=serie, diciplina=diciplina)
 
     def get_itens_for_type_facade(self, type_item):
         return self.estrutura.get_itens_for_type(type_item=type_item)

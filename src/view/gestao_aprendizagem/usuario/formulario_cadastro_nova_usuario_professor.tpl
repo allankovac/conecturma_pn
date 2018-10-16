@@ -75,13 +75,16 @@
                 </div>
                 <div class="container" style="margin-top:20px;margin-bottom: 20px">
                     <div class="row">
-                        <div class="offset-md-9 distanciamento"><!--nao existe\/-->
+                        <div class="offset-md-8 distanciamento"><!--nao existe\/-->
                             <button type="submit" class="botao-salvar" onclick="cadastro_usuario('professor')"
                                     style="margin-left: 10px;">salvar
                             </button>
                             <button class="botao-salvar" style="background-color:#ff0000"
                                     onclick='document.getElementById("3").style.display = "none"'>cancelar
                             </button>
+                        </div>
+                         <div class="col-md-1">
+                            <img id= "loading" src="/static/img/loading.gif" style="margin-left:10px;margin-top:20px;display:none;">
                         </div>
                     </div>
                 </div>

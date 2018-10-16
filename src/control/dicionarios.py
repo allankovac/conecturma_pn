@@ -1,7 +1,10 @@
+# encoding: utf-8
+
 TIPO_USUARIOS = dict(
     administrador='0',
     gestor='1',
     diretor='2',
+    coordenador='2.5',
     professor='3',
     responsavel='4',
     responsavel_varejo='5',
@@ -15,6 +18,7 @@ TIPO_USUARIOS_ID = {
     '5':'RESPONSAVEL VAREJO',
     '4':'RESPONSAVEL',
     '3':'PROFESSOR',
+    '2.5':'COORDENADOR',
     '2':'DIRETOR',
     '1':'GESTOR',
     '0':'ADMINISTRADOR'
@@ -50,6 +54,7 @@ PAGINA_INICIAL = dict(
     administrador='/administrador/pag_administrador',#'/gestao_aprendizagem'
     gestor='/gestao_aprendizagem',
     diretor='/gestao_aprendizagem',
+    coordenador='/gestao_aprendizagem',
     professor='/gestao_aprendizagem',
     responsavel='/gestao_aprendizagem',
     responsavel_varejo='/gestao_aprendizagem',
@@ -86,8 +91,6 @@ TIPO_OAS = {
 
 TIPO_OAS_ID = {
     'MINI_GAME': '1',
-    'VIDEO': '2',
-    'CINEMATIC': '3'
 }
 
 UNIDADES = {

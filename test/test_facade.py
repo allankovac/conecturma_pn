@@ -56,13 +56,15 @@ class FacadeTest(unittest.TestCase):
     def _update_aluno(self):
         self._create_aluno()
         aluno1 = self.facade.search_aluno_nome_facade("dickens silverio")
-        self.facade.update_aluno_facade(aluno1['id'], nome="knight", nome_login='KNIGHT')
+        self.facade.update_aluno_facade(aluno1['id'], nome="knight", nome_login='KNIGHT',turma='1')
         # self.facade.update_aluno_facade(aluno1['id'], nome="knight", senha="321", turma="do bairro", escola="conectreutrma",
         #                                 rede="de pesca")
         aluno2 = self.facade.search_aluno_nome_facade("knight")
         self.assertEqual(aluno1['id'], aluno2['id'])
         self.assertNotEqual(aluno1['nome'], aluno2['nome'])
         self.assertNotEqual('dickens silverio', aluno2['nome'])
+        self.assertNotEqual(aluno1['nome_login'],aluno2['nome_login'])
+        self.assertNotEqual(aluno1['vinculo_turma'],aluno2['vinculo_turma'])
 
     def test_update_aluno(self):
         self._update_aluno()

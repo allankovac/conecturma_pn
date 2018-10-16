@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from bottle import route, view, get, request, redirect, template
 from control.classes.validar_cadastros_updates import *
 from facade.facade_main import Facade

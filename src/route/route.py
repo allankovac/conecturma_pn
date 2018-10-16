@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+# encoding: utf-8
+
 import os
 
 from bottle import route, view, get, request, post, redirect, Bottle, delete
@@ -61,9 +62,8 @@ def controller_login_sair():
 
 
 """
-Rotas da Tela de do Ambiente de aprendizagem
+                        ROTAS COM CAMINHO DO AMBIENTE DE APRENDIZAGEM
 """
-
 
 @route('/aluno/area_aluno')
 # @permissao('aluno_varejo')
@@ -74,10 +74,9 @@ def view_ambiente_de_aprendizagem(no_repeat=False):
     return view_ambiente_de_aprendizagem()
 
 
-
 @route('/aluno/guarda_roupa')
 @permissao('aluno_varejo')
-def view_guarda_roupa():
+def view_guarda_roupa(no_repeat=False):
     from bottle import template
     from control.guarda_roupa_controller import Guarda_roupa
 
@@ -110,35 +109,50 @@ def view_guarda_roupa():
     guarda_roupa.get_item_comprar()
     guarda_roupa.get_item_user_have()
 
+    return template('caminho_aluno/guarda_roupa/index', usuario_logado=usuario_logado(), apelido=usuario['apelido'],
+                    cor=cor, rosto=rosto, acessorio=acessorio, corpo=corpo, cristais=usuario['pontos_de_moedas'],
+                    cores=guarda_roupa.get_cor(), rostos=guarda_roupa.get_rosto(),
+                    acessorios=guarda_roupa.get_acessorio(), corpos=guarda_roupa.get_corpo(),
+                    itens_usuario=guarda_roupa.get_itens_user())
 
 
-    return template('caminho_aluno/guarda_roupa/index',usuario_logado = usuario_logado(), apelido = usuario['apelido'], cor=cor, rosto=rosto, acessorio=acessorio, corpo=corpo, cristais=usuario['pontos_de_moedas'],
-                    cores=guarda_roupa.get_cor(), rostos=guarda_roupa.get_rosto(), acessorios=guarda_roupa.get_acessorio(), corpos=guarda_roupa.get_corpo(), itens_usuario = guarda_roupa.get_itens_user())
 
 @route('/comprar_item', method='POST')
 @permissao('aluno_varejo')
-def buy_item():
+def buy_item(no_repeat=False):
     from bottle import request
     from control.guarda_roupa_controller import Guarda_roupa
 
     guarda_roupa = Guarda_roupa(usuario_logado=usuario_logado())
-    guarda_roupa.buy_item(id_item=request.params['item'])
+    if guarda_roupa.buy_item(id_item=request.params['item']):
+        return '1'
+    else:
+        return '0'
+
 
 @route('/equipar_item', method='POST')
 @permissao('aluno_varejo')
-def equip_item():
+def equip_item(no_repeat=False):
     from bottle import request
     usuario = usuario_logado()
     item = []
 
     for i in request.params:
         if i != 'apelido':
-
             item.append(facade.search_estrutura_id_facade(id=request.params[i]))
     if request.params['apelido'] != '0' or request.params['apelido'] != "" or request.params['apelido'] != None:
         facade.set_apelido_facade(id=usuario['id'], apelido=request.params['apelido'])
     facade.equipar_item_facade(id=usuario['id'], itens=item)
 
+
+@route('/ObterValoresHud', method='POST')
+@permissao('aluno_varejo')
+def valores_moedas_vidas_hud(no_repeat=False):
+    aluno_c = Aluno_controler()
+    return aluno_c.obter_moedas_e_vidas_hud(usuario=usuario_logado())
+
+
+"""                                       FUNÇOES E ROTAS PARA FUNCIONAR O JOGO                             """
 @route('/jogo')
 def jogo():
     from bottle import template
@@ -187,9 +201,7 @@ def verificarAcessoAventura():
     return verificarAcessoAventura()
 
 
-"""
-Rotas da Tela de do gestão de aprendizagem
-"""
+"""                             ROTAS DO CAMINHO DE GESTAO DE APRENDIZAGEM                               """
 
 
 @route('/gestao_aprendizagem')
@@ -204,7 +216,7 @@ def view_gestao_aprendizagem(no_repeat=False):
 @route('/gestao_aprendizagem/usuario')
 # @permissao('professor')
 @view('gestao_aprendizagem/usuario/usuario')
-@permissao('professor')
+@permissao('responsavel_varejo')
 def view_usuario_index(no_repeat=False):
     from control.gestao_aprendizagem_controller import view_usuario_index
     return view_usuario_index()
@@ -214,8 +226,11 @@ def view_usuario_index(no_repeat=False):
 @permissao('professor')
 def cadastro_usuario(no_repeat=False):
     from control.gestao_aprendizagem_controller import cadastro_usuario
+
     if no_repeat:
-        usuario=request.params
+        usuario = {}
+        for i in request.params:
+            usuario[i] = request.params.getunicode(i)
         return usuario
     return cadastro_usuario()
 
@@ -276,11 +291,18 @@ def check_change_mudanca_alun():
 
 @route('/aluno/update_aluno', method='POST')
 def aluno_edit():
+    from control.dicionarios import TIPO_ESTRUTURA
     id = request.params['id']
-    nome = request.params['nome']
+    nome = request.params.getunicode('nome')
     nome_login = request.params['login']
-    aluno_c = Aluno_controler()
-    return aluno_c.update_aluno(id=id, nome=nome, nome_login=nome_login)
+    try:
+        turma_al = request.params['turma']
+        print('turma_al', turma_al)
+        aluno_c = Aluno_controler()
+        return aluno_c.update_aluno(id=id, nome=nome, nome_login=nome_login, turma=turma_al)
+    except KeyError:
+        aluno_c = Aluno_controler()
+        return aluno_c.update_aluno(id=id, nome=nome, nome_login=nome_login)
 
 
 @get('/observador/editar')
@@ -324,7 +346,8 @@ def read_de_medalha(no_repeat=False):
     from control.gestao_aprendizagem_controller import read_de_medalha
     return read_de_medalha()
 
-@route ('medalha/aluno-medalhas',method='POST')
+
+@route('medalha/aluno-medalhas', method='POST')
 def medalhas_aluno():
     from control.aprendizagem_controller import read_medalha_album
     aluno = usuario_logado()['id']
@@ -332,17 +355,18 @@ def medalhas_aluno():
     return dict(aluno_medalhas=aluno_medalhas)
 
 
-
 @route('/aluno/medalhas')
-@permissao('aluno_varejo')
+# @permissao('aluno_varejo')
 @view('caminho_aluno/medalhas.tpl')
+@permissao('aluno_varejo')
 def read_medalha_aluno():
-    from control.aprendizagem_controller import read_medalha_album,getMedalhas
+    from control.aprendizagem_controller import read_medalha_album, getMedalhas
     aluno = usuario_logado()
     if int(aluno['tipo']) < 6:
         return getMedalhas(aluno)
     else:
         return read_medalha_album(aluno['id'])
+
 
 @route('/rede')
 # @permissao('gestor')
@@ -430,11 +454,13 @@ def controller_update_turma(no_repeat=False):
     from control.gestao_aprendizagem_controller import controller_update_turma
     return controller_update_turma(no_repeat)
 
+
 @route('/turma/entregar_medalha_aluno', method='POST')
 @permissao('professor')
 def controller_entregar_medalha_aluno():
     from control.gestao_aprendizagem_controller import controller_entregar_medalha_aluno
     return controller_entregar_medalha_aluno()
+
 
 @route('/turma/entregar_medalha_todos_alunos', method='POST')
 @permissao('professor')
@@ -482,13 +508,26 @@ def relatorio_aluno(no_repeat=False):
     relatorio.set_pontuacao_porcentagem()
 
     return dict(tipo=usuario_logado()['tipo'], aluno=aluno, oa=relatorio.descritores, porcentagem=relatorio.porcentagem,
-                pontos=relatorio.porcentagem_solo)
+                pontos=relatorio.porcentagem_solo, vezes=relatorio.vezes_jogada)
 
 
 @route('/trazer_oas')
+@view('gestao_aprendizagem/relatorios/aluno/relatorio_table.tpl')
 def levar_oas_matematica():
-    from control.gestao_aprendizagem_controller import levar_oas_matematica
-    return levar_oas_matematica()
+    from control.relatorio_controller import Relatorio
+    relatorio = Relatorio()
+
+    aluno = facade.search_aluno_id_facade(id_aluno=request.params['aluno'])
+    turma = facade.search_estrutura_id_facade(id=aluno['vinculo_turma'])
+
+    relatorio.get_matematica_or_portugues_descritor(serie=turma['serie'], diciplina=request.params['diciplina'])
+    relatorio.get_desempenho(descritores=relatorio.descritores, aluno=aluno)
+    relatorio.convert_nivel_for_numeric()
+    relatorio.set_color_face()
+    relatorio.set_pontuacao_porcentagem()
+
+    return dict(oa=relatorio.descritores, aluno=aluno, porcentagem=relatorio.porcentagem,
+                pontos=relatorio.porcentagem_solo)
 
 
 """
@@ -578,10 +617,9 @@ def upload():
         usuario.nome_foto_perfil = nome_foto
         usuario.save()
         upload_file.save('view/app/fotos_usuarios', overwrite=True)
-        redirect('/')
+        redirect('/gestao_aprendizagem')
     except AttributeError:
-
-        redirect('/')
+        redirect('/gestao_aprendizagem')
 
 
 @route('/salvar_css_foto', method='post')
@@ -590,10 +628,4 @@ def salvar_css_foto():
     observador.aux_css_foto = request.params['posicao_foto']
     observador.save()
 
-# @route('/gestao_aprendizagem2')
-# # @permissao('responsavel_varejo')
-# @view('gestao_aprendizagem/gestao_aprendizagem2')
-# @permissao('responsavel_varejo')
-# def view_gestao_aprendizagem(no_repeat=False):
-#     from control.gestao_aprendizagem_controller import view_gestao_aprendizagem
-#     return view_gestao_aprendizagem()
+

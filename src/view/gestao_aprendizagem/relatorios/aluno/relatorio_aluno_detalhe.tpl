@@ -35,6 +35,7 @@
 <script type="text/javascript" src="../static/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../static/js/graficoRelatorio.js"></script>
+<script type="text/javascript" src="../static/js/script.js"></script>
 
-</body>
-</html>
+
+%include('gestao_aprendizagem/footer/footer.tpl')

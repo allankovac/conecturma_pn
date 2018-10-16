@@ -13,7 +13,7 @@
 
 <!-- aqui começa os dados internos do acordeon -->
 <div class="container">
-    <div class="row row-par">
+    <div class="row">
         <div id="collapsea{{i['id']}}" class="collapse col-md-12 item-tabela" role="tabpanel"
              aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <!-- aqui começa o conteudo das guias  -->
-                <div class="tab-content row-par">
+                <div class="tab-content">
                     <div class="tab-pane container active" id="{{i['id']}}">
                         <form>
                             <input type="hidden" id="id_aluno{{i['id']}}" value="{{i['id']}}">
@@ -65,6 +65,27 @@
                                             </select>
                                         </div>
                                     </div>
+                                    %if tipo=='0':
+                                    <div class="row distanciamento" style="margin-left:5px" >
+                                        <div class="col-md-">
+                                            <select id="aluno_turma{{i['id']}}"  class="custom-select custom-select-md">
+                                                <option selected value="">{{i['vinculo_turma']}}</option>
+                                                %for t in i['turmas_escola']:
+
+                                                %for x,y in t.items():
+
+                                                <option value="{{x}}">{{y}}</option>
+                                                %end
+                                                %end
+
+                                </select>
+
+                                            <input type="hidden" id="aluno_escola{{i['vinculo_escola']}}">
+                                        </div>
+                                    </div>
+
+
+                                    %end
                                     <h5>Acesso</h5>
                                     <div class="row distanciamento" style="margin-left: 5px;">
 
@@ -87,6 +108,7 @@
                                                 <img src="/static/img/{{i['senha'][3]}}.png" style="padding-left:15px;">
                                             </div>
                                         </div>
+
 
                                     </div>
                                     <!--fim da div dos dados ao lado da imagem-->

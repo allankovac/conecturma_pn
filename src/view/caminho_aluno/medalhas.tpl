@@ -21,7 +21,7 @@
         <div class="row">
             <div class="menu col-md-9 offset-md-2">
                 <ul>
-                    <li class="c"></li>
+                    <li class="c"><a href="/aluno/area_aluno"></a> </li>
                     <li class="ambiente"><a href="/gestao_aprendizagem"></a></li>
                     <li class="facebook offset-md-1"><a href="https://www.facebook.com/conecturmaoficial/"
                                                         target="_blank"></a></li>
@@ -49,6 +49,7 @@
             <br>
             <br>
             <div class="row">
+
                 % for i in medalha_recente:
                     %if i['tipo_medalha']== '2' :
                         <div class="bounce" style="background-image: url('/static/img/medalha/fundo-medalha-recente.png');width: 220px;height:220px;text-align: center;display: block;opacity: 1; margin-left:0px;margin-right:10px;">
@@ -109,14 +110,22 @@
                     <div class="row col-md-11" style="padding-left: 32px;">
 
                         % for i in medalha_jogo:
-                        % if str(i['id']) in medalha_aluno:
+                            %if usuario['tipo'] < '6':
                         <div class="todasmedalhas bounce"
                              style="background-image: url('/static/img/medalha/fundo-medalha-todas.png');width: 150px;height: 150px;text-align: center;margin: 10px -8px 10px 30px;display: block;opacity: 1;">
                             <img alt="Jogador " class="medalha-lista-todas" data-id="" data-imagem=""
                                  id="{{i['id']}}"
                                  src="/static/img/medalha/jogo-{{i['id']}}.png" style="">
                         </div>
-                        %else:
+                            %elif usuario['tipo'] >='6':
+                                % if str(i['id']) in medalha_aluno:
+                        <div class="todasmedalhas bounce"
+                             style="background-image: url('/static/img/medalha/fundo-medalha-todas.png');width: 150px;height: 150px;text-align: center;margin: 10px -8px 10px 30px;display: block;opacity: 1;">
+                            <img alt="Jogador " class="medalha-lista-todas" data-id="" data-imagem=""
+                                 id="{{i['id']}}"
+                                 src="/static/img/medalha/jogo-{{i['id']}}.png" style="">
+                        </div>
+                                %else:
                         <div class="todasmedalhas bounce"
                              style="background-image: url('/static/img/medalha/fundo-medalha-todas.png');width: 150px;height: 150px;text-align: center;margin: 10px -8px 10px 30px;display: block;opacity: 1;">
                             <img alt="Jogador " class="medalha-lista-todas" data-id="" data-imagem=""
@@ -124,8 +133,12 @@
                                  src="/static/img/medalha/jogo-{{i['id']}}.png"
                                  style="opacity: 0.5;grayscale(100%);-webkit-filter: grayscale(100%);">
                         </div>
+                                %end
+
+                            %end
+
                         %end
-                        % end
+
                     </div>
 
                 </div>
@@ -133,8 +146,20 @@
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="todas-medalhas">
                     <div class="row col-md-11" style="padding-left: 32px;">
+
                         % for i in medalha_socio:
-                        % if str(i['id']) in medalha_aluno:
+                            %if usuario['tipo'] < '6':
+
+                             <div class="todasmedalhas bounce"
+                             style="background-image: url('/static/img/medalha/fundo-medalha-todas.png');width: 150px;height: 150px;text-align: center;margin: 10px -8px 10px 30px;display: block;opacity: 1;">
+                                <img alt=" " class="medalha-lista-todas" data-id="" data-imagem=""
+                                 id="{{i['id']}}"
+                                 src="/static/img/medalha/socio/socio-{{i['id']}}.png"
+                                 style="">
+
+                        </div>
+                            %else:
+                                    % if str(i['id']) in medalha_aluno:
 
                         <div class="todasmedalhas bounce"
                              style="background-image: url('/static/img/medalha/fundo-medalha-todas.png');width: 150px;height: 150px;text-align: center;margin: 10px -8px 10px 30px;display: block;opacity: 1;">
@@ -142,7 +167,7 @@
                                  id="{{i['id']}}"
                                  src="/static/img/medalha/socio/socio-{{i['id']}}.png" style="">
                         </div>
-                        %else:
+                                %else:
                         <div class="todasmedalhas bounce"
                              style="background-image: url('/static/img/medalha/fundo-medalha-todas.png');width: 150px;height: 150px;text-align: center;margin: 10px -8px 10px 30px;display: block;opacity: 1;">
                             <img alt=" " class="medalha-lista-todas" data-id="" data-imagem=""
@@ -151,14 +176,27 @@
                                  style="opacity: 0.5;grayscale(100%);-webkit-filter: grayscale(100%);">
 
                         </div>
+                                %end
+                            %end
                         %end
-                        %end
+
                     </div>
                 </div>
             </div>
         </div>
         <br>
     </div>
+
+    <!-- POP PARABENS -->
+        <div id="pop">
+            <a href="#" onclick="document.getElementById('pop').style.display='none';"><img  id="fechar"src="x.png"></a>
+            <br/>
+            <img id="parabens" src="parabens.png">
+            <br>
+            <img style="width: 190px;height: auto; margin-left: 75px;" src="img/eu-penso-eu-consigo.jpg">
+
+        </div>
+
 </main>
 
 <script type="text/javascript" src="../static/js/jquery-3.3.1-min.js"></script>

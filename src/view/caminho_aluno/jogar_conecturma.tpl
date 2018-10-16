@@ -34,7 +34,7 @@
     <div class="row">
         <div class="menu col-md-9 offset-md-2">
             <ul>
-                <li class="c"></li>
+                <li class="c"><a href="/aluno/area_aluno"></a></li>
                 <li class="ambiente"><a href="/gestao_aprendizagem"></a></li>
                 <li class="facebook offset-md-1"><a href="https://www.facebook.com/conecturmaoficial/" target="_blank"></a></li>
                 <li class="youtube offset-md-1"><a href="https://www.youtube.com/conecturma" target="_blank"></a></li>'
@@ -48,7 +48,9 @@
 <div class="container corpo-pag">
     <div class="row">
         <div class="col-md-3 avatar-std">
+
             <div class="avatar_usuario" style="position: absolute;">
+                <a href="/aluno/guarda_roupa">
                 %if cor != '0':
                     <img src="/static/img/body/2{{cor}}" style="z-index: 11; position: relative;width: 80%; bottom: 77px; right: 26px;">
                 %else:
@@ -63,15 +65,21 @@
                 %if corpo != '0':
                     <img src="/static/img/corpo/2{{corpo}}" style="z-index: 12; position: absolute; width: 80%; left: -24px; top: -75px;">
                 %end
+                    </a>
             </div>
+
             <img src="/static/img/acess.png" style="width: 156px; height: 208px;margin-left: 139px;">
-            <a href="/aluno/guarda_roupa" style="left: 82%;width: 58px;height: 60px;position:  absolute;top: 3px;"></a>
+            <a href="/aluno/guarda_roupa" id="roupa" style="left: 82%;width: 58px;height: 60px;position:  absolute;top: 3px;"></a>
             <div class="avatar-base-box" style="position:absolute;">
                 <img src="/static/img/avatar-base1.png" class="avatar-ship img-fluid" style=" position: relative; bottom: 28px; right: 16px;"> <br>
                 <img src="/static/img/avatar-box-name2.png" style=" position: relative;  bottom: 31px;  left: 8px;">
              </div>
 
-            <span id="apelido" style="position: absolute; top: 49%; left: 68px; color: #fff; font-weight: bold;">{{apelido.upper()}}</span>
+            <span id="apelido" style="position: absolute; top: 49%; left: 68px; color: #fff; font-weight: bold;">
+                % if apelido != '0': 
+                    {{apelido.upper()}}
+                % end
+            </span>
             <!--<div class="offset-md-4 col-md-1">-->
             <span id="CRYSTAL">{{moedas}}</span>
             <span id="HP">{{vida}}</span>
@@ -112,6 +120,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
+
+<script src="../static/js/bootstrap.bundle.min.js"></script>
 
 <script>
         $(document).ready(function () {
@@ -184,6 +194,7 @@
             console.log("message source: " + event.source);
             console.log("message data: " + event.data);
             var parametros = JSON.parse(event.data);
+            console.log("parametros AAAAA,jogoC"+JSON.stringify(parametros));
             enviarRequisicaoAjax(
                 parametros,
                 function (data, textStatus, jqXhr) {
@@ -220,8 +231,8 @@
             );
         });
         function enviarRequisicaoAjax(parametros, callbackSucesso, callbackErro) {
-            //HOST = 'http://localhost:8080/'
-            HOST = 'http://ec2-18-231-72-172.sa-east-1.compute.amazonaws.com/'
+            HOST = 'http://localhost:8080/'
+            //HOST = 'http://ec2-18-231-72-172.sa-east-1.compute.amazonaws.com/'
             console.log("enviarRequisicaoAjax parametros", parametros);
             console.log(parametros.operacao);
             var jqXhr = jQuery.ajax({
@@ -242,7 +253,7 @@
             $(".portal").show();
             $.ajax({
                 type: "POST",
-               // url: '/AcademicoConecturma/AmbienteAprendizagem/ObterValoresHud',
+                url: '/ObterValoresHud',
                 dataType: "json",
                 success: function (hud) {
                     $('div.coins').text(hud.moedas);
@@ -252,4 +263,4 @@
         }
 </script>
 </div>
-%include('gestao_aprendizagem/footer/footer.tpl')
+%include('gestao_aprendizagem/footer/footer1.tpl')

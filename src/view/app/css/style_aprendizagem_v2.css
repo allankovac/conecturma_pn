@@ -25,6 +25,12 @@ body{
    height: 162px;
 }
 
+.c a{
+    width: 112px;
+    height: 113px;
+    display: inline-block;
+}
+
 .ambiente{
    background: url(/static/img/menu/ambiente.png) 0 0 no-repeat;
    width: 78px;

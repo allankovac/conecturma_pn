@@ -3,7 +3,7 @@
 <div class="col-md-9 order-md-3 botao-tabela" style="margin-top: 6px;">
   <div style="left: -14px;margin-bottom: 30px;position: relative;">
     <p class="top-escolas-tabela">Turma</p>
-    % if tipo != '3':
+    % if tipo < '2':
     <button type="button" class="botao-nova-escola" onclick="document.getElementById('new_school').style.display = 'inline'">
       <i class="fas fa-plus"></i>
       &nbsp;Nova Turma
@@ -35,7 +35,7 @@
       % else:
         <div class="row row-impar">
           <input type="hidden" id ="id_escola" value="{{i['id']}}">
-          %include('gestao_aprendizagem/turma/turma_edicao_impar.tpl')
+          %include('gestao_aprendizagem/turma/turma_edicao_par.tpl')
         </div>
       % end
     % end
@@ -96,8 +96,8 @@
     motivo = document.getElementById("motivo"+medalha);
     $.post('/turma/entregar_medalha_aluno', { aluno: alunoid, medalha: medalha, motivo: motivo.value}, function (data) {
       if(data == '1'){
-        alert("Medalha foi entregue com sucesso!");
         motivo.value='';
+        setTimeout(alert("Medalha foi entregue com sucesso!"), 3000);
       }
       else{
         alert("Erro, medalha não pode ser entregue.");
@@ -106,11 +106,11 @@
   }
 
   function entregarMedalhaTodos(turmaId, medalha) {
-    motivo = document.getElementById("motivo"+medalha);
+    motivo = document.getElementById("motivo"+medalha+"_todos");
     $.post('/turma/entregar_medalha_todos_alunos', { turma: turmaId, medalha: medalha, motivo: motivo.value }, function (data) {
       if(data == '1'){
-      alert("Medalha foi entregue com sucesso!");
-      motivo.value='';
+        motivo.value='';
+        setTimeout(alert("Medalha foi entregue com sucesso!"), 3000);
       }
       else{
         alert("Erro, medalha não pode ser entregue.");

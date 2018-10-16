@@ -1,27 +1,24 @@
 %include('gestao_aprendizagem/header/header.tpl', title="Gestão Aprendizagem", css="css-gestao-aprendizagem.css")
 %include('gestao_aprendizagem/menu/menu.tpl')
-<div class="col-md-9 order-md-3 texto-inicial" style="margin-top: 70px;">
+<div class="col-md-9 order-md-3 texto-inicial" style="margin-top: 15px;">
     <div style="margin-left: 41px;">
         <div class="row">
 <div class="col-md-3" id='inter' style="border-radius: 113px;position:relative;z-index:5;">
-                <form method="POST" enctype="multipart/form-data" action="http://localhost:8080/upload_img">
-                        <div class="col-md-12 doughnut" style="height: 165px;position:relative;transform:translate(9px, -18px);left: 22px;" ><!--onclick="getElementById(&#39;image&#39;).style.zIndex=&#39;1&#39;"-->
-                            <div id="image" class="" style="position: relative; z-index: 1; {{css_foto}} ;margin-left: -50px;">
-                                <!--<div>-->
-                                <img src="/static/fotos_usuarios/{{foto_obs}}" class="profile-image blah img-responsive img-circle" style="margin-top: 25px;" >
 
-                                <!--</div>-->
+                <form id="image_form" method="POST" enctype="multipart/form-data" action="/upload_img">
+                        <div class="col-md-12" style="height: 165px;position:relative;transform:translate(9px, -18px);left: 22px;" >
+                            <div id="image" style="position: relative; z-index: 1; {{css_foto}} ;margin-left: -50px;">
+                                <label for="img-obs">
+                                    <img src="/static/fotos_usuarios/{{foto_obs}}" class="img-thumbnail rounded-circle" style="margin-top: 25px;" >
+                                    <!--<div class="doughnut"></div>-->
+                                </label>
+                                <input type="file" id="img-obs" name="uploadfile" onchange="readURL(this);" style="  display:none;"><br>
+
                             </div>
                         </div>
-
-                    <div class="row" style="margin-top:5px;margin-left:25px;">
-                        <i class="fas fa-question-circle" data-toggle="tooltip" data-placement="left" title="por favor coloque uma imagem de ate 1MB , em formato jpeg , png ou jpg"></i><label for="img-obs" class="efeito-img botao-salvar" style="font-size: 10pt;padding: 6px;margin-left: 10px;border-radius: 100px;">Mudar Imagem
-                            Perfil</label>
-                        <input type="file" id="img-obs" name="uploadfile" onchange="readURL(this);" style="display:none"><br>
-                        <input type="submit" value="Salvar" class="botao-salvar" id="salv" style="display:none;margin-left: 49px;">
-                    </div>
                 </form>
             </div>
+
 
             <div class="col-md-9" style="padding-left: 60px;">
                 <div class="row fonte-texto" style="margin-top:18px;">
@@ -99,35 +96,28 @@
 %include('gestao_aprendizagem/footer/footer.tpl')
 <script>
 function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                ext=input.files[0].name.split('.')[1];
-                console.log(ext,input.files[0].size,input.files);
-                if (ext != 'png' && ext!= 'jpg' && ext!= 'jpeg'){
-                        alert('POOOOO , coloca um png ou jpg ou jpeg ae');
-                }else if (input.files[0].size > 1048576){
-                        alert('por favor selecione uma imagem ate 1MB');
-                        }
-                else{
-                        //getElementById('image').style.zIndex='1';
-                    $('#salv').css('display','block');
-                  var element = document.getElementById("image");
-                    element.classList.add("draggable");
-                    reader.onload = function (e) {
-                        $('.blah')
-                            .attr('src', e.target.result)
-                    };
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        ext=input.files[0].name.split('.')[1];
+        console.log(ext,input.files[0].size,input.files);
+        if (ext != 'png' && ext!= 'jpg' && ext!= 'jpeg'){
+            alert('A imagem precisa ser um png ou jpg');
+        }else if (input.files[0].size > 1048576){
+            alert('por favor selecione uma imagem ate 1MB');
         }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-            }
-
-
-
-
-</script>
-<script>
+        else{
+            document.getElementById("image_form").submit();
+            //getElementById('image').style.zIndex='1';
+            //$('#salv').css('display','block');
+            //var element = document.getElementById("image");
+            //element.classList.add("draggable");
+            //reader.onload = function (e) {
+            //    $('.blah').attr('src', e.target.result)
+            //};
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 interact('.draggable').draggable({
     // enable inertial throwing
     inertia: false,
@@ -145,21 +135,17 @@ interact('.draggable').draggable({
     }
   });
 
-  function dragMoveListener (event) {
+function dragMoveListener (event) {
     console.log('test',event.target);
     var target = event.target,
 
-        // keep the dragged position in the data-x/data-y attributes
-        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+    // keep the dragged position in the data-x/data-y attributes
+    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+    y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
     // translate the element
     target.style.webkitTransform =
-    target.style.transform =
-      'translate(' + x + 'px, ' + y + 'px)';
-
-
-
-    // update the posiion attributes
+    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    //update the posiion attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
     $.ajax({
@@ -169,9 +155,7 @@ interact('.draggable').draggable({
     },
     dataType: 'json',
     type: 'post'
-});
-  }
-
-
+    });
+}
 
 </script>

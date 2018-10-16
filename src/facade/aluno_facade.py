@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from model.aluno_model import DbAluno
 
 
@@ -10,13 +12,11 @@ class AlunoFacade:
     def create_aluno_facade(self, **kwargs:str):
         return self.aluno.create_aluno(**kwargs)
 
-
     def read_aluno_facade(self):
         return self.aluno.read_aluno()
 
-
-    def update_aluno_facade(self, id:int, nome:str,nome_login:str):
-        return self.aluno.update_aluno(update_id=id, nome=nome,nome_login=nome_login)
+    def update_aluno_facade(self, id:int, nome:str,nome_login:str,turma):
+        return self.aluno.update_aluno(update_id=id, nome=nome,nome_login=nome_login,vinculo_turma=turma)
 
     def set_itens_student_facade(self, id, itens):
         return self.aluno.set_itens_student(id, itens)
@@ -64,7 +64,7 @@ class AlunoFacade:
         return self.aluno.ver_itens_comprados(id_usuario)
 
 
-    def equipar_item_facade(self, id:int, itens:int):
+    def equipar_item_facade(self, id:int, itens:list):
         return self.aluno.equipar_item(id_usuario=id, itens=itens)
 
 
@@ -104,6 +104,15 @@ class AlunoFacade:
 
     def get_medalhas_facade(self, id_aluno):
         return self.aluno.get_medalhas(id_aluno=id_aluno)
+
+    def vincular_responsavel_facade(self, id_aluno, id_responsavel):
+        return self.aluno.vincular_responsavel(id_aluno=id_aluno, id_responsavel=id_responsavel)
+
+    def get_alunos_sem_responsaveis_facade(self, vinculo_rede=None, vinculo_escola=None, vinculo_turma=None):
+        return self.aluno.get_alunos_sem_responsaveis(vinculo_rede=vinculo_rede, vinculo_escola=vinculo_escola, vinculo_turma=vinculo_turma)
+
+    def get_alunos_viculo_responsavel_facade(self, id_responsavel):
+        return self.aluno.get_alunos_viculo_responsavel(id_responsavel=id_responsavel)
 
     def apagartudo(self):
         return self.aluno.apagartudo()

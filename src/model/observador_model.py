@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from walrus import *
 from datetime import date
 
@@ -94,6 +96,7 @@ class DbObservador(Model):
 
         observador = self.load(id)
         retorno = vars(observador)["_data"]
+
         return retorno
 
     def search_observador_email(self, email):

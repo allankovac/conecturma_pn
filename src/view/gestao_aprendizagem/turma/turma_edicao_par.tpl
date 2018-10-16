@@ -8,7 +8,7 @@
 
 <!-- aqui começa os dados internos do acordeon -->
 <div class="container">
-    <div class="row row-par">
+    <div class="row">
         <div id="collapse{{i['id']}}" class="collapse col-md-12 item-tabela" role="tabpanel"
              aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
@@ -25,11 +25,16 @@
                                    aria-controls="escola-do-rock-prof" aria-selected="false">Alunos
                                 </a>
                             </li>
+                            <!--<li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#aventura"
+                                   aria-controls="aventura" aria-selected="false">Aventura
+                                </a>
+                            </li>-->
                         </ul>
                     </div>
                 </div>
                 <!-- aqui começa o conteudo das guias  -->
-                <div class="tab-content row-par">
+                <div class="tab-content">
                     <div class="tab-pane container active" id="{{i['id']}}">
                         <form>
                             <input type="hidden" id="id_turma{{i['id']}}" value="{{i['id']}}">
@@ -62,7 +67,7 @@
                                                 <span style="color:#ff0000"></span>
                                             </label>
                                             <input type="text" class="form-control" size="21" name=""
-                                                   id="escola{{i['id']}}" value="{{i['vinculo_escola']}}"  style="width: 579px;" disabled>
+                                                   id="professor{{i['id']}}" value="{{i['professor']}}"  style="width: 579px;" disabled>
                                         </div>
                                     </div>
                                     <div class="row distanciamento">
@@ -74,10 +79,11 @@
                                                    id="escola{{i['id']}}" value="{{i['vinculo_escola']}}"  style="width: 579px;" disabled>
                                         </div>
                                     </div>
-
-                                    <div id="dar_medalhas_todos">
-                                        %include('gestao_aprendizagem/turma/medalha_aluno_todos.tpl')
-                                    </div> <!--Fechando janela de dar medalhas -->
+                                    % if tipo ==TIPO_USUARIOS['professor']:
+                                        <div id="dar_medalhas_todos">
+                                            %include('gestao_aprendizagem/turma/medalha_aluno_todos.tpl')
+                                        </div> <!--Fechando janela de dar medalhas -->
+                                    % end
                                     <!--fim da div dos dados ao lado da imagem-->
                                 </div> <!-- fechando col-md-12 -->
                             </div>
@@ -92,6 +98,7 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-11">
+                                            % if index % 2 ==0:
                                                 <div class="row row-impar nome-prof">
                                                     <div class="col-md-4" style="margin-top: 4px;">
                                                         Nome: {{z['nome']}}
@@ -110,17 +117,128 @@
                                                              style="padding-left:11px;width: 15%;margin-right:5px;">
                                                     </div>
                                                 </div>
+                                                % if tipo == TIPO_USUARIOS['professor']:
+                                                    <div class="col-md-1 row-impar nome-prof">
+                                                        <img src="/static/img/icone-medalha-do-aluno.png" data-toggle="modal" data-target="#medalha_janela{{z['id']}}" style="cursor: pointer;margin-top: 12px;margin-left: -5px;">
+                                                    </div>
+                                                    %include('gestao_aprendizagem/turma/medalha_aluno.tpl')
+                                                % end
+                                             % else:
+
+                                                <div class="row row-par nome-prof">
+                                                    <div class="col-md-4" style="margin-top: 4px;">
+                                                        Nome: {{z['nome']}}
+                                                        <br>
+                                                        Login :{{z['nome_login']}}
+                                                    </div>
+                                                    <div class="col-md-6 offset-md-2" style="padding:10px">
+                                                        <span style="margin-left: 17px;"> &nbsp;senha :</span>
+                                                        <img src="/static/img/{{z['senha'][0]}}.png"
+                                                             style="padding-left:11px;width: 15%;margin-right:5px;">
+                                                        <img src="/static/img/{{z['senha'][1]}}.png"
+                                                             style="padding-left:11px;width: 15%;margin-right:5px;">
+                                                        <img src="/static/img/{{z['senha'][2]}}.png"
+                                                             style="padding-left:11px;width: 15%;margin-right:5px;">
+                                                        <img src="/static/img/{{z['senha'][3]}}.png"
+                                                             style="padding-left:11px;width: 15%;margin-right:5px;">
+                                                    </div>
+                                                </div>
+                                                % if tipo == TIPO_USUARIOS['professor']:
+                                                    <div class="col-md-1 row-par nome-prof">
+                                                        <img src="/static/img/icone-medalha-do-aluno.png" data-toggle="modal" data-target="#medalha_janela{{z['id']}}" style="cursor: pointer;margin-top: 12px;margin-left: -5px;">
+                                                    </div>
+                                                    %include('gestao_aprendizagem/turma/medalha_aluno.tpl')
+                                                % end
+
+                                             % end
                                             </div>
-                                            <div class="col-md-1 row-impar nome-prof">
-                                                <img src="/static/img/icone-medalha-do-aluno.png" data-toggle="modal" data-target="#medalha_janela{{z['id']}}" style="cursor: pointer;margin-top: 12px;margin-left: -5px;">
-                                            </div>
-                                            %include('gestao_aprendizagem/turma/medalha_aluno.tpl')
                                         </div>
                                     </div>
                                 %end
                         </div>
                     </div>
                     <br>
+                </div>
+                <div class="tab-pane fade aba-prof" id="aventura" role="tabpanel"
+                         aria-labelledby="aventura">
+                    <div class="row" style="margin-top: 12px;">
+                        <div class="container">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="row row-impar nome-prof" >
+                                            <div class="col-md-4" style="margin-top: 4px;">
+                                                Semana 1
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="row row-impar nome-prof" >
+                                            <div class="col-md-4" style="margin-top: 4px;">
+                                                Semana 2
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="row row-impar nome-prof" >
+                                            <div class="col-md-4" style="margin-top: 4px;">
+                                                Semana 3
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="row row-impar nome-prof" >
+                                            <div class="col-md-4" style="margin-top: 4px;">
+                                                Semana 4
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="row row-impar nome-prof" >
+                                            <div class="col-md-4" style="margin-top: 4px;">
+                                                Semana 5
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="row row-impar nome-prof" >
+                                            <div class="col-md-4" style="margin-top: 4px;">
+                                                Semana 6
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="row row-impar nome-prof" >
+                                            <div class="col-md-4" style="margin-top: 4px;">
+                                                Semana 7
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="row row-impar nome-prof" >
+                                            <div class="col-md-4" style="margin-top: 4px;">
+                                                Semana 8
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="container">
                     <div class="row" style="margin-bottom: 10px">

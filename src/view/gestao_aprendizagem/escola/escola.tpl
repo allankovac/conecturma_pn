@@ -34,7 +34,7 @@
         % else:
           <div class="row row-impar">
             <input type="hidden" id ="id_escola" value="{{i['id']}}">
-            %include('gestao_aprendizagem/escola/escola_edicao_impar.tpl')
+            %include('gestao_aprendizagem/escola/escola_edicao_par.tpl')
           </div>
         % end
         %end

@@ -154,12 +154,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .profile-image{
-	width: 148px;
-    height: 150px;
-	border-radius: 100px;
+	width: 203px;
+    border-radius: 100px;
 	box-sizing: border-box;
 	z-index:-1;
-	margin-left: -19px;
 }
 
 .efeito-img:hover .profile-image {
@@ -307,12 +305,6 @@ background-color:initial;
     margin-left:40px;
 
 }
-
-.doughnut {
-    border: 18px solid white;
-    border-radius: 100px;
-    height:173px;
-}
 .botao{
 background-color: #0391E6;
 	color: white;
@@ -341,4 +333,13 @@ background-color: #0391E6;
 
 .modal-content{
     height: 455px;
+}
+
+.doughnut {
+	position: relative;
+    top: -163px; 
+    border: 30px solid white;
+    border-radius: 100px;
+    height: 193px;
+    width: 205px;
 }

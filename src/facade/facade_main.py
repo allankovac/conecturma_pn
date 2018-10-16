@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from walrus import *
 from facade.aluno_facade import AlunoFacade
 # from facade.historico_facade import HistoricoFacade

@@ -319,3 +319,16 @@ textarea{
 }
 
 #id-nossa-escola:hover{background-color: #0391E6; color:white;}
+
+ .number{ font-family: Calibri, sans-serif;
+                    font-size: 30px;
+                    margin-left: -6px;
+                            }
+ .word{
+                font-family: Calibri, sans-serif;
+                font-size: 12px;
+                margin-left: 8px;
+        }
+ .circles{display: inline-flex;
+                    }
+ .circle{ margin-right: 30px;}

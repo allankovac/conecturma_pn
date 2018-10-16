@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from bottle import route, request, template
 from facade.facade_main import Facade
 from control.classes.permissao import usuario_logado, permissao

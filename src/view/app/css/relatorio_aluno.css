@@ -62,3 +62,26 @@ input {
 .hiddenRow {
     padding: 0 !important;
 }
+.number{
+  font-family: Calibri, sans-serif;
+  font-size: 30px;
+  margin-left: 10px;
+}
+.word{
+  font-family: Calibri, sans-serif;
+  position: relative;
+  font-size: 16px;
+  margin-left: 13px;
+  font-weight: bold;
+  bottom: 6px;
+}
+.circles{
+  display: inline-flex;
+  margin-left:176px;
+  margin-bottom: 38px;
+  margin-top: 24px;
+                  }
+.circle
+{
+margin-right: 97px;
+}

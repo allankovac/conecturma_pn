@@ -43,5 +43,4 @@
 <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../static/js/graficoRelatorio.js"></script>
 
-</body>
-</html>
+%include('gestao_aprendizagem/footer/footer.tpl')

@@ -12,7 +12,7 @@
 
 <!-- aqui começa os dados internos do acordeon -->
 <div class="container">
-    <div class="row row-par">
+    <div class="row">
         <div id="collapse{{i['id']}}" class="collapse col-md-12 item-tabela" role="tabpanel"
              aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <!-- aqui começa o conteudo das guias  -->
-                <div class="tab-content row-par">
+                <div class="tab-content">
                     <div class="tab-pane container active" id="{{i['id']}}">
                         <form>
                             <input type="hidden" id="observador_id{{i['id']}}" value="{{i['id']}}">

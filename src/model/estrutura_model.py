@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from walrus import *
 from control.dicionarios import TIPO_ESTRUTURA
 
@@ -116,11 +118,11 @@ class DbEstrutura(Model):
 
     def search_turma_by_escola(self, vinculo_escola):
         turma = []
-        for lista in DbEstrutura.query((DbEstrutura.tipo_estrutura == '3') & (DbEstrutura.vinculo_escola == vinculo_escola),
+        for lista in self.query((DbEstrutura.tipo_estrutura == '3') & (DbEstrutura.vinculo_escola == vinculo_escola),
                                 order_by=DbEstrutura.nome):
             turma.append(vars(lista)["_data"])
 
-            return turma
+        return turma
 
     def search_descritor_serie(self,serie):
         from control.dicionarios import TIPO_ESTRUTURA
@@ -128,6 +130,18 @@ class DbEstrutura(Model):
 
         for i in DbEstrutura.query((DbEstrutura.tipo_estrutura == TIPO_ESTRUTURA['objeto_de_aprendizagem']) &
                                    (DbEstrutura.serie == serie), order_by=DbEstrutura.id):
+
+            oas.append(vars(i)["_data"])
+
+        return oas
+
+    def search_descritor_serie_diciplina(self,serie, diciplina):
+        from control.dicionarios import TIPO_ESTRUTURA, DICIPLINA_NOME
+
+        oas = []
+
+        for i in DbEstrutura.query((DbEstrutura.tipo_estrutura == TIPO_ESTRUTURA['objeto_de_aprendizagem']) &
+                                   (DbEstrutura.serie == serie) & (DbEstrutura.disciplina == diciplina), order_by=DbEstrutura.id):
 
             oas.append(vars(i)["_data"])
 

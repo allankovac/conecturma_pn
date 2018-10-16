@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from control.classes.permissao import usuario_logado
 
 class Relatorio(object):
@@ -8,6 +10,9 @@ class Relatorio(object):
         self.desempenho = None
         self.pontuacao = None
         self.porcentagem = None
+        self.vezes_jogada = None
+        self.media = None
+        self.media_final = None
         self.porcentagem_solo = []
 
     def get_alunos(self, usuario_online_dados, nome_turma):
@@ -54,17 +59,19 @@ class Relatorio(object):
 
         for i in descritores:
             if 'VC' not in i['sigla_oa'] and 'CN' not in i['sigla_oa']:
-                desempenho = facade.search_oa_facade(id_aluno=str(aluno['id']), objeto_aprendizagem=i['sigla_oa'])
+                desempenho = facade.search_oa_facade(id_aluno=aluno['id'], objeto_aprendizagem=i['sigla_oa'])
                 pontuacao.append(desempenho)
 
         self.desempenho = pontuacao
 
     def set_color_face(self):
         porcentagem = []
-
+        vezes = []
         for i in self.pontuacao:
+            vezes.append(len(i))
             porcentagem.append(int((sum(i) * 100)/(2 * len(i))))
 
+        self.vezes_jogada = vezes
         self.porcentagem = porcentagem
 
 
@@ -96,6 +103,11 @@ class Relatorio(object):
                 porcentagem.append(int((sum(i[0:z]) * 100) / (2 * z)))
                 z+=1
             self.porcentagem_solo.append(porcentagem)
+
+    def get_matematica_or_portugues_descritor(self, serie, diciplina):
+        from facade.facade_main import Facade
+        facade = Facade()
+        self.descritores = facade.search_descritor_serie_diciplina_facade(serie = serie, diciplina=diciplina)
 
     def convertendo_str_in_dict(self, str):
         from ast import literal_eval

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class ValidaNome:
     def __init__(self, proxima_validacao):
         self.proxima_validacao = proxima_validacao

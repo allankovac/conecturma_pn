@@ -54,6 +54,12 @@ body{
    height: 162px;
 }
 
+.c a{
+    width: 112px;
+    height: 113px;
+    display: inline-block;
+}
+
 .ambiente{
    background: url('/static/img/menu/ambiente.png') 0 0 no-repeat;
    width: 78px;
@@ -198,3 +204,23 @@ overflow-y:scroll;
     height: 455px;
     width: 594px;
 }
+
+ #pop{
+        display:none;
+        position: absolute;
+        top: 5vh;
+        left: 37vw;
+        padding: 10px;
+        width: 340px;
+        height: 383px;
+        border: 2px solid #f0d325;
+        border-radius: 12px;
+        }
+        #fechar{
+            margin-left: 24vw;
+            bottom: 5vh;
+            position: relative;
+        }
+        #parabens{
+                margin-left: 3vw;
+        }

@@ -25,8 +25,8 @@ style="cursor: pointer; position: relative; bottom: 200px; margin-right: 36px;">
                          <th scope="row"> <img src="/static/img/medalha/socio/socio-{{m['image_name']}}.png" style="width: 118px; height: auto;"></th>
                          <td colspan="2" position: absolute; > <div style="display: inline-flex">
                              <div class="descricao" style="width:274px;"><span>{{m['descricao_completa']}}</span></div>
-                             <textarea id="motivo{{m['id']}}" maxlength="140" placeholder="Máximo 140 caracteres!"></textarea></div>
-                             <button type="button" class="btn btn-cor" onclick="entregarMedalha({{i['id']}}, {{m['id']}})" style="cursor: pointer;">Enviar</button>
+                             <textarea id="motivo{{m['id']}}_todos" maxlength="140" placeholder="Máximo 140 caracteres!"></textarea></div>
+                             <button type="button" class="btn btn-cor" onclick="entregarMedalhaTodos({{i['id']}}, {{m['id']}})" style="cursor: pointer;">Enviar</button>
                          </td>
                        </tr>
                     % end

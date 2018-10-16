@@ -1,4 +1,5 @@
 <!--div da nova escola-->
+
     <div class="row row-impar">
         <div class="col-md-11 item-tabela-h" style="color:black">
             nova rede
@@ -9,6 +10,7 @@
             </button>
         </div>
     </div>
+
     <div class="row row-impar" id="nova-escola" style="display: block">
         <div class="container">
             <div id="teste" class="row new-scola">

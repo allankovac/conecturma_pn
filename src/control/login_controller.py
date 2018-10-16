@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from bottle import request, redirect,response, template
 from control.classes.permissao import Login_Observador, Login_Aluno, usuario_logado
 from facade.facade_main import *

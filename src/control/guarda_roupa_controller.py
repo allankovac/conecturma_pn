@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from facade.facade_main import Facade
 from control.dicionarios import TIPO_ITEM, TIPO_ESTRUTURA
 
@@ -67,5 +69,5 @@ class Guarda_roupa(object):
         if self.usuario_logado['tipo'] <'6':
             usuario = self.facade.search_observador_id_facade(id=self.usuario_logado['id'])
         else:
-            self.facade.compra_item_facade(id_item=id_item, id_usuario=self.usuario_logado['id'])
+            return self.facade.compra_item_facade(id_item=id_item, id_usuario=self.usuario_logado['id'])
 

@@ -70,6 +70,9 @@
                             <button class="botao-salvar" style="background-color:#ff0000"
                                     onclick='document.getElementById("1").style.display = "none"'>cancelar
                             </button>
+                            <div class="col-md-1">
+                            <img id= "loading" src="/static/img/loading.gif" style="margin-left:10px;margin-top:20px;display:none;">
+                        </div>
                         </div>
                     </div>
                 </div>

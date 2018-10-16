@@ -2,13 +2,10 @@
        aria-controls="collapse{{i['id']}}" id="id-nossa-escola" onclick="seta('id-nossa-escola')">
     {{i['nome']}}
 </div>
-
-
 <!--fim das informaçoes da tabela-->
-
 <!-- aqui começa os dados internos do acordeon -->
 <div class="container">
-    <div class="row row-par">
+    <div class="row">
     <div id="collapse{{i['id']}}" class="collapse col-md-12 item-tabela" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
 
@@ -19,13 +16,19 @@
                             <a class="nav-link active " data-toggle="tab" href="#{{i['id']}}" role="tab" aria-controls="escola-do-rock" aria-selected="true">Dados da Gerais</a>
                         </li>
                         <li class="nav-item">
+                            <button class="nav-link" data-toggle="tab" href="#{{i['id']}}-coordenador" aria-controls="escola-do-rock-coordenador" aria-selected="false">Coordenadores</button>
+                        </li>
+                        <li class="nav-item">
                             <button class="nav-link" data-toggle="tab" href="#{{i['id']}}-prof" aria-controls="escola-do-rock-prof" aria-selected="false">Professores</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-toggle="tab" href="#{{i['id']}}-alunos" aria-controls="escola-do-rock-aluno" aria-selected="false">Alunos</button>
                         </li>
                     </ul>
                 </div>
             </div>
             <!-- aqui começa o conteudo das guias  -->
-            <div class="tab-content row-par">
+            <div class="tab-content ">
                 <div class="tab-pane container active" id="{{i['id']}}">
                     <form>
                         <input type="hidden" id ="id_escola{{i['id']}}" value="{{i['id']}}">
@@ -113,36 +116,19 @@
                             </div>
                         </div>
                 </div>
-                <!-- aqui termina o conteudo da guia do dados de escola  -->
-                <div class="tab-pane fade aba-prof" id="{{i['id']}}-prof" role="tabpanel" aria-labelledby="{{i['nome']}}-prof">
-                    <div class="row">
-                        <div class="container">
-                            <div class="offset-md-1 distanciamento col-md-" style="margin-top: 20px">
-                                <p>Professor
-                                    <i class="far fa-question-circle"></i>
-                                </p>
-                            </div>
-                            % for z in i['professor']:
-                                <div class="row">
-                                    <div class="col-md-11">
-                                        <div class="offset-md-1 nome-prof row row-impar">
-                                            <div class="col-md-11">
-                                                {{z['nome']}}
-                                            </div>
-                                            <div class="col-md-1 item-tabela">
-                                                <a href="">
-                                                    <i class="fas fa-edit edit-ico"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            %end
 
-                        </div>
-                    </div>
+                <div class="tab-pane fade aba-prof" id="{{i['id']}}-coordenador" role="tabpanel" aria-labelledby="{{i['nome']}}-coordenador">
+                    %include('gestao_aprendizagem/escola/escola_edicao_aba_coordenador.tpl')
                 </div>
-                <br>
+
+                <div class="tab-pane fade aba-prof" id="{{i['id']}}-prof" role="tabpanel" aria-labelledby="{{i['nome']}}-prof">
+                    %include('gestao_aprendizagem/escola/escola_edicao_aba_professor.tpl')
+                </div>
+
+                <div class="tab-pane fade aba-prof" id="{{i['id']}}-alunos" role="tabpanel" aria-labelledby="{{i['nome']}}-alunos">
+                    %include('gestao_aprendizagem/escola/escola_edicao_aba_aluno.tpl')
+                </div>
+
             </div>
             <div class="container">
                 <div class="row" style="margin-bottom: 10px">
@@ -168,5 +154,9 @@
         </div>
     </div>
     </form>
-</div>
+        <!-- Modal -->
+        %include('gestao_aprendizagem/escola/escola_modal_criacao_professor.tpl')
+        %include('gestao_aprendizagem/escola/escola_modal_criacao_coordenador.tpl')
+        %include('gestao_aprendizagem/escola/escola_modal_criacao_aluno.tpl')
+    </div>
 </div>

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from bottle import route, static_file
 
 @route('/static/<filename>')
@@ -121,6 +123,11 @@ def assets_path(path):
     """
     return static_file(path, root='././jogo/ASSETS')
 
+@route('/ASSETS_2/<path:path>')
+def assets_path(path):
+
+    return static_file(path, root='././jogo/ASSETS_2')
+
 @route('/UV1/<path:path>')
 def uv1_path(path):
     """
@@ -129,3 +136,6 @@ def uv1_path(path):
     :return:
     """
     return static_file(path, root='././jogo/UV1')
+
+
+

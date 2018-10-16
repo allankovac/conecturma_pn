@@ -1,4 +1,4 @@
-%include('gestao_aprendizagem/header/header.tpl', title="Gestão Aprendizagem", css="css-listagem-escolas.css") 
+%include('gestao_aprendizagem/header/header.tpl', title="Gestão Aprendizagem", css="css-listagem-escolas.css")
 %include('gestao_aprendizagem/menu/menu.tpl')
 <div class="col-md-9 order-md-3 botao-tabela">
     <div style="left: -14px;margin-bottom: 30px;position: relative;">
@@ -9,6 +9,9 @@
     %if tipo == '3':
         <div id="4" style="display:none;">
           %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_aluno.tpl')
+        </div>
+        <div id="5" style="display:none;">
+            %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_responsavel.tpl')
         </div>
     %elif tipo == '0':
         <div id="1" style="display:none;">
@@ -23,6 +26,12 @@
        <div id="4" style="display:none;">
           %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_aluno.tpl')
         </div>
+        <div id="5" style="display:none;">
+            %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_responsavel.tpl')
+        </div>
+        <div id="6" style="display:none;">
+            %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_coordenador.tpl')
+        </div>
     %elif tipo == '1':
          <div id="2" style="display:none;">
           %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_diretor.tpl')
@@ -33,12 +42,24 @@
        <div id="4" style="display:none;">
           %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_aluno.tpl')
         </div>
+        <div id="5" style="display:none;">
+            %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_responsavel.tpl')
+        </div>
+        <div id="6" style="display:none;">
+            %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_coordenador.tpl')
+        </div>
     %elif tipo == '2':
        <div id="3" style="display:none;">
           %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_professor.tpl')
         </div>
        <div id="4" style="display:none;">
           %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_aluno.tpl')
+        </div>
+        <div id="5" style="display:none;">
+            %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_responsavel.tpl')
+        </div>
+        <div id="6" style="display:none;">
+            %include('gestao_aprendizagem/usuario/formulario_cadastro_nova_usuario_coordenador.tpl')
         </div>
     % end
 
@@ -58,6 +79,7 @@
         <%
             for index,i in enumerate(usuarios):
         %>
+
            %include('gestao_aprendizagem/usuario/usuario_template_edicao.tpl')
         <%
             end
@@ -98,8 +120,20 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+    $("button#coordenador").click(function(){
+        $("div#novo-coordenador").toggle(100);
+    });
+});
+
+$(document).ready(function(){
     $("button#diretor").click(function(){
         $("div#novo-diretor").toggle(100);
+    });
+});
+
+$(document).ready(function(){
+    $("button#responsavel").click(function(){
+        $("div#novo-responsavel").toggle(100);
     });
 });
 

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from model.observador_model import DbObservador
 
 class ObservadorFacade:

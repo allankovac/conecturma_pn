@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from bottle import redirect, response, request
 from datetime import datetime
 from control.dicionarios import *
@@ -35,7 +37,8 @@ class Login_Observador(object):
                     facade.create_estrutura_facade(tipo_estrutura=TIPO_ESTRUTURA['historico'],
                                                    nome_usuario=observador_logado['nome'],
                                                    tipo_usuario=observador_logado['tipo'])
-                    return PAGINA_INICIAL[tipo_observador(observador_logado['tipo'])]
+
+                    return PAGINA_INICIAL[TIPO_USUARIOS_ID[observador_logado['tipo']].lower()]
                 else:
                     return '/'
             else:
@@ -66,11 +69,12 @@ class Login_Aluno(object):
     def login(self):
         facade = Facade()
         hash = self.gerar_hash()
-        print('nome',self.nome)
+        print('nome',self.nome, self.senha)
         aluno = facade.search_aluno_nome_login_facade(nome_login=self.nome.upper())
-        response.set_cookie("KIM", hash, path='/', secret=KEY_HASH)
+        print(aluno)
         if aluno['nome_login'] == self.nome.upper():
             if aluno['senha'] == self.senha:
+                response.set_cookie("KIM", hash, path='/', secret=KEY_HASH)
                 """aluno_logado = dict(
                     id=aluno['id'],
                     nome=aluno['nome'],
@@ -84,6 +88,7 @@ class Login_Aluno(object):
                     moeda=aluno['pontos_de_moedas'],
                     xp=aluno['pontos_de_vida']
                 )"""
+                print('entrei aqui')
                 response.set_cookie("BUMBA", aluno, path='/', secret=hash)
                 return PAGINA_INICIAL[tipo_observador(aluno['tipo'])]
         else:
@@ -124,7 +129,7 @@ def algum_usuario_logado(function):
         banana = request.get_cookie("KIM", secret=KEY_HASH)
         que = request.get_cookie("BUMBA", secret=banana)
         if que and banana:
-            redirect(PAGINA_INICIAL[tipo_observador(que['tipo'])])
+            redirect(PAGINA_INICIAL[TIPO_USUARIOS_ID[que['tipo']].lower()])
         else:
             return function(*args, **kwargs)
 
@@ -137,15 +142,19 @@ def permissao(quem_tem_permissao):
             banana = request.get_cookie("KIM", secret=KEY_HASH)
             que = request.get_cookie("BUMBA", secret=banana)
             if banana and que:
-                if int(TIPO_USUARIOS[quem_tem_permissao]) >= int(que['tipo']):
+                if TIPO_USUARIOS[quem_tem_permissao] >= que['tipo']:
                     try:
                         histo = HistoricoFacade()
-                        if 'get'in function.__name__:
+                        if 'get'in function.__name__ or 'lista' in function.__name__:
                             pass
                         elif 'view' in function.__name__:
                             histo.create_historico_facade(acao=function.__name__, nome_usuario=usuario_logado()['nome'],
                                                           momento=datetime.now())
+                        elif 'controller' in function.__name__:
 
+                            retorno_da_func = function(observador=usuario_logado(),no_repeat=True)
+                            histo.create_historico_facade(acao=function.__name__, nome_usuario=usuario_logado()['nome'],
+                                                          momento=datetime.now())
                         else:
                             retorno_da_func=function(no_repeat=True)
 

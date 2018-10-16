@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from bottle import default_app, run
 from route.route import *
 from static.static import *
@@ -11,8 +13,9 @@ def main():
 
     application = default_app()
 
-    run(host='0.0.0.0', port=80, reload=True, server='gunicorn', workers=4)
-    #run(host='localhost', port=8080, reload=True)
+
+    # run(host='localhost', port=8080, reload=True, server='gunicorn', workers=4)
+    run(host='localhost', port=8080, reload=True)
 
 
 @route('/error403')

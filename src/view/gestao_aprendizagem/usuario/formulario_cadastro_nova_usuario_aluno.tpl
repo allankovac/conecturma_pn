@@ -30,6 +30,7 @@
                          id="dados-da-escola">
                         <div class="row distanciamneto" style="margin-top: 30px; margin-right: 0px;">
                             <div class=" col-md-4">
+
                                 <label for="nome" style="background-color: inherit;">Nome Completo
                                     <span style="color:#ff0000">*</span>
                                 </label>
@@ -84,7 +85,7 @@
                 </div>
                 <div class="container" style="margin-top:20px;margin-bottom: 20px">
                     <div class="row">
-                        <div class="offset-md-9 distanciamento"><!--nao existe\/-->
+                        <div class="offset-md-8 distanciamento"><!--nao existe\/-->
                             <button type="submit" class="botao-salvar" onclick="cadastro_usuario('aluno')"
                                     style="margin-left: 10px;">salvar
                             </button>
@@ -92,6 +93,10 @@
                                     onclick='document.getElementById("4").style.display = "none"'>cancelar
                             </button>
                         </div>
+                        <div class="col-md-1">
+                            <img id= "loading" src="/static/img/loading.gif" style="margin-left:10px;margin-top:20px;display:none;">
+                        </div>
+
                     </div>
                 </div>
             </div>
